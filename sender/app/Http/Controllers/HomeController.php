@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App;
 
 class HomeController extends Controller
 {
@@ -23,6 +24,11 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $contactos = App\Contacto::all();
+        return view('home',compact('contactos'));
+    }
+    public function detalle($id){
+        $contacto = App\Contacto::findOrFail($id);
+        return view('contactos.detalle',compact('contacto'));
     }
 }
