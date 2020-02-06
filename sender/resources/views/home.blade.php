@@ -13,7 +13,20 @@
                             {{ session('status') }}
                         </div>
                     @endif
+                    
 
+
+                    <form action="{{ route('contacts.import.excel') }}" method="post" enctype="multipart/form-data">
+                        @csrf
+                        
+                        @if(Session::has('message'))
+                        <p>{{ Session::get('message') }}</p>
+                        @endif
+
+                        <input type="file" name="file">
+                        
+                        <button class="btn btn-danger">Importar Contactos</button>
+                    </form>
 
                     Bienvenido a continuacion puede visualizar sus contactos existentes <br>
                     <table class="table">
@@ -35,7 +48,8 @@
                             </tr>
                         @endforeach
                         </tbody>
-                    </table>                        
+                    </table>   
+                    <a class="btn btn-success" href="{{ route('contacts.excel') }}">Descargar Lista de Contactos</a>                     
                 </div>
             </div>
         </div>

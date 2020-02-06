@@ -24,7 +24,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $contactos = App\Contacto::all();
+        $usuarioactivo= auth()->id();
+        $contactos = App\Contacto::where('usuario',$usuarioactivo)->get();
         return view('home',compact('contactos'));
     }
     public function detalle($id){
