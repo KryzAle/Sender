@@ -20,7 +20,9 @@
                         @csrf
                         
                         @if(Session::has('message'))
-                        <p>{{ Session::get('message') }}</p>
+                        <div class="alert alert-success">
+                            {{ Session::get('message') }}
+                        </div>
                         @endif
 
                         <input type="file" name="file">
