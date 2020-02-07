@@ -29,6 +29,10 @@
                         
                         <button class="btn btn-danger">Importar Contactos</button>
                     </form>
+                    <div class="form-group">
+                        <label for="texto">Mensaje</label>
+                        <textarea class="form-control"  rows="5" id="texto" name="texto"></textarea>
+                    </div>
 
                     Bienvenido a continuacion puede visualizar sus contactos existentes <br>
                     <table class="table">

@@ -33,8 +33,9 @@ class HomeController extends Controller
         return view('contactos.detalle',compact('contacto'));
     }
     public function envio(){
-        //$contacto = App\Contacto::findOrFail($id);
-        //return view('contactos.detalle',compact('contacto'));
-        return view('envio');
+        $mensaje = "Hola amigo";
+        $usuarioactivo= auth()->id();
+        $contactos = App\Contacto::where('usuario',$usuarioactivo)->get();
+        return view('envio',compact(['contactos','mensaje']));
     }
 }

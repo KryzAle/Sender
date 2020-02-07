@@ -14,37 +14,33 @@ require_once('../vendor/autoload.php');
 
 
 
-for ($i = 1; $i <= 3; $i++) {
-  
+foreach($contactos as $item){
+    
+    $numeroTelefonico = $item->telefono;
+    $numero = $rest = substr($numeroTelefonico, 1);
+    $numeroTel = "593" . $numero;
+    $i=1;
+    $options = new ChromeOptions();
+    $options->setExperimentalOption('debuggerAddress','localhost:9014');
+    
+    // This is where Selenium server 2/3 listens by default. For Selenium 4, Chromedriver or Geckodriver, use http://localhost:4444/
+    $host = 'http://localhost:4444';
+    $caps = DesiredCapabilities::chrome();
+    $caps->setCapability(ChromeOptions::CAPABILITY, $options);
+    
+    $driver = RemoteWebDriver::create($host, $caps);
+    $driver->get("https://web.whatsapp.com/send?phone='" . $numeroTel . "'&text='" . $mensaje . "'&source&data");
 
-  $options = new ChromeOptions();
-  $options->setExperimentalOption('debuggerAddress','localhost:9014');
-  
-  // This is where Selenium server 2/3 listens by default. For Selenium 4, Chromedriver or Geckodriver, use http://localhost:4444/
-  $host = 'http://localhost:4444';
-  $caps = DesiredCapabilities::chrome();
-  $caps->setCapability(ChromeOptions::CAPABILITY, $options);
-  
-  $driver = RemoteWebDriver::create($host, $caps);
-  $driver->getKeyboard()->sendKeys(
-    array(WebDriverKeys::CONTROL, 'n')
-  );
-  $driver->get("https://web.whatsapp.com/send?phone=593979358929&text=hola%20amigo%20este%20es%20mi%20mensaje'" . $i . "'&source&data");
+    $element = $driver->wait()->until(
+      WebDriverExpectedCondition::presenceOfElementLocated(WebDriverBy::cssSelector('#main > footer > div._2i7Ej._14Mgc.copyable-area > div:nth-child(3) > button'))
+    );
+    $botonEnviar = $driver->findElement(
+      WebDriverBy::cssSelector('#main > footer > div._2i7Ej._14Mgc.copyable-area > div:nth-child(3) > button')
+    );
+    $botonEnviar->click();
 
+    sleep(3);
 
-  echo "Espere a que se envien los mensajes \n ";
+  }
 
-
-  $element = $driver->wait()->until(
-    WebDriverExpectedCondition::presenceOfElementLocated(WebDriverBy::cssSelector('#main > footer > div._2i7Ej._14Mgc.copyable-area > div:nth-child(3) > button'))
-  );
-  $botonEnviar = $driver->findElement(
-    WebDriverBy::cssSelector('#main > footer > div._2i7Ej._14Mgc.copyable-area > div:nth-child(3) > button')
-  );
-  $driver->manage()->timeouts()->implicitlyWait(20);
-  $botonEnviar->click();
-
-  echo "Numero de mensajes enviados'" . $i . "'\n";
-  sleep(10);
-
-}
+  echo "SUS MENSAJES HAN SIDO ENVIADOS ";
