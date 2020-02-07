@@ -9,9 +9,8 @@ use Facebook\WebDriver\Remote\DesiredCapabilities;
 use Facebook\WebDriver\Remote\RemoteWebDriver;
 
 require_once('vendor/autoload.php');
-
 // This is where Selenium server 2/3 listens by default. For Selenium 4, Chromedriver or Geckodriver, use http://localhost:4444/
-$host = 'http://localhost:9515';
+$host = 'http://localhost:4444';
 
 $capabilities = DesiredCapabilities::chrome();
 
@@ -24,6 +23,8 @@ $driver->get('https://en.wikipedia.org/wiki/Selenium_(software)');
 $driver->findElement(WebDriverBy::id('searchInput')) // find search input element
     ->sendKeys('PHP') // fill the search box
     ->submit(); // submit the whole form
+
+
 
 // wait until 'PHP' is shown in the page heading element
 $driver->wait()->until(

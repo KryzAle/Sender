@@ -10,7 +10,7 @@ use Facebook\WebDriver\Remote\RemoteWebDriver;
 use Facebook\WebDriver\Chrome\ChromeOptions;
 
 
-require_once('vendor/autoload.php');
+require_once('../vendor/autoload.php');
 
 
 

@@ -51,7 +51,8 @@
                         @endforeach
                         </tbody>
                     </table>   
-                    <a class="btn btn-success" href="{{ route('contacts.excel') }}">Descargar Lista de Contactos</a>                     
+                    <a class="btn btn-success" href="{{ route('contacts.excel') }}">Descargar Lista de Contactos</a>    
+                    <a class="btn btn-success" href="{{ route('envio') }}">Enviar Mensajes</a>                 
                 </div>
             </div>
         </div>

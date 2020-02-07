@@ -32,4 +32,9 @@ class HomeController extends Controller
         $contacto = App\Contacto::findOrFail($id);
         return view('contactos.detalle',compact('contacto'));
     }
+    public function envio(){
+        //$contacto = App\Contacto::findOrFail($id);
+        //return view('contactos.detalle',compact('contacto'));
+        return view('envio');
+    }
 }
