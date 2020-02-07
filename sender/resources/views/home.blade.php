@@ -34,6 +34,11 @@
                         <textarea class="form-control"  rows="5" id="texto" name="texto"></textarea>
                     </div>
 
+                    
+                    <div class="form-group">
+                            
+                        <a class="btn btn-success" href="{{ route('envio') }}">Enviar Mensajes</a>
+                    </div>
                     Bienvenido a continuacion puede visualizar sus contactos existentes <br>
                     <table class="table">
                         <thead class="thead-dark">
@@ -55,8 +60,7 @@
                         @endforeach
                         </tbody>
                     </table>   
-                    <a class="btn btn-success" href="{{ route('contacts.excel') }}">Descargar Lista de Contactos</a>    
-                    <a class="btn btn-success" href="{{ route('envio') }}">Enviar Mensajes</a>                 
+                    <a class="btn btn-success" href="{{ route('contacts.excel') }}">Descargar Lista de Contactos</a>
                 </div>
             </div>
         </div>
