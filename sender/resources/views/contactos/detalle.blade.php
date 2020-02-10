@@ -18,6 +18,7 @@
                     <h4>Telefono: {{$contacto->telefono}}</h4>
                     <h4>Observacion: {{$contacto->observacion}}</h4>
                 </div>
+                <a href="{{route('home')}}" class="btn btn-success">Volver</a>
             </div>
         </div>
     </div>

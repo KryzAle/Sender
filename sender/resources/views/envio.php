@@ -19,7 +19,7 @@ foreach($contactos as $item){
     $numeroTelefonico = $item->telefono;
     $numero = $rest = substr($numeroTelefonico, 1);
     $numeroTel = "593" . $numero;
-    $i=1;
+    
     $options = new ChromeOptions();
     $options->setExperimentalOption('debuggerAddress','localhost:9014');
     
@@ -29,8 +29,8 @@ foreach($contactos as $item){
     $caps->setCapability(ChromeOptions::CAPABILITY, $options);
     
     $driver = RemoteWebDriver::create($host, $caps);
-    $driver->get("https://web.whatsapp.com/send?phone='" . $numeroTel . "'&text='" . $mensaje . "'&source&data");
-
+    $driver->get("https://web.whatsapp.com/send?phone=" . $numeroTel . "&text=" . $mensaje . "&source&data");
+    sleep($tiempoespera);
     $element = $driver->wait()->until(
       WebDriverExpectedCondition::presenceOfElementLocated(WebDriverBy::cssSelector('#main > footer > div._2i7Ej._14Mgc.copyable-area > div:nth-child(3) > button'))
     );
@@ -39,7 +39,7 @@ foreach($contactos as $item){
     );
     $botonEnviar->click();
 
-    sleep(3);
+    sleep($intervalo);
 
   }
 

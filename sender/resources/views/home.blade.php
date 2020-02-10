@@ -29,16 +29,26 @@
                         
                         <button class="btn btn-danger">Importar Contactos</button>
                     </form>
-                    <div class="form-group">
+                    <form method="POST" class="form-group" action="{{ route('envio') }}" >
+                        @csrf
                         <label for="texto">Mensaje</label>
-                        <textarea class="form-control"  rows="5" id="texto" name="texto"></textarea>
-                    </div>
-
-                    
-                    <div class="form-group">
+                        <textarea class="form-control"  placeholder="Ingrese su mensaje" 
+                        name="mensaje" rows="5" id="texto" name="texto" required></textarea>
+                        <br>
+                        <div class="form-row">
                             
-                        <a class="btn btn-success" href="{{ route('envio') }}">Enviar Mensajes</a>
-                    </div>
+                            <div class="col">
+                            <input type="number" class="form-control" placeholder="Tiempo de espera(seg)" required>
+                            </div>
+                            <div class="col">
+                            <input type="number" class="form-control" placeholder="Intervalo de envio de mensajes(seg)" required>
+                            </div>
+                        </div>
+                        <br>
+                        <button class="btn btn-success" type="submit" >Enviar Mensajes</button>
+                        
+                    </form>
+
                     Bienvenido a continuacion puede visualizar sus contactos existentes <br>
                     <table class="table">
                         <thead class="thead-dark">
@@ -55,11 +65,21 @@
                                 <th scope="row">{{$item->id}}</th>
                                 <td>{{$item->nombre}}</td>
                                 <td>{{$item->telefono}}</td>
-                                <td><a class="btn btn-primary" href="{{route('contactos.detalle',$item)}}">Detalle</a></td>
+                                <td>
+                                    <a class="btn btn-primary" href="{{route('contactos.detalle',$item)}}">Detalle</a>
+                                    <a href="{{route('contactos.editar', $item)}}" class="btn btn-warning">Editar</a>
+                                    <form action="{{ route('contactos.eliminar', $item) }}" class="d-inline" method="POST">
+                                        @method('DELETE')
+                                        @csrf
+                                        <button type="submit" class="btn btn-danger">Eliminar</button>
+                                    </form> 
+                                </td>
+                                
                             </tr>
                         @endforeach
                         </tbody>
                     </table>   
+                    {{$contactos->links()}}
                     <a class="btn btn-success" href="{{ route('contacts.excel') }}">Descargar Lista de Contactos</a>
                 </div>
             </div>
