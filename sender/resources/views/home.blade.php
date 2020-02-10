@@ -38,10 +38,10 @@
                         <div class="form-row">
                             
                             <div class="col">
-                            <input type="number" class="form-control" placeholder="Tiempo de espera(seg)" required>
+                            <input type="number" min="1" class="form-control" placeholder="Tiempo de espera(seg)" required>
                             </div>
                             <div class="col">
-                            <input type="number" class="form-control" placeholder="Intervalo de envio de mensajes(seg)" required>
+                            <input type="number" min="1" class="form-control" placeholder="Intervalo de envio de mensajes(seg)" required>
                             </div>
                         </div>
                         <br>
