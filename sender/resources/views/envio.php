@@ -35,18 +35,26 @@ foreach($contactos as $item){
         
         $driver = RemoteWebDriver::create($host, $caps);
         $driver->get("https://web.whatsapp.com/send?phone=" . $numeroTel . "&text=" . $mensaje . "&source&data");
-        //sleep($tiempoespera);
-        $botonEnviar = $driver->wait()->until(
-          WebDriverExpectedCondition::presenceOfElementLocated(WebDriverBy::cssSelector('#main > footer > div._2i7Ej._14Mgc.copyable-area > div:nth-child(3) > button'))
-        );
         sleep($tiempoespera);
+        //$driver->navigate()->refresh();
         
-        $botonEnviar = $driver->findElement(
-          WebDriverBy::cssSelector('#main > footer > div._2i7Ej._14Mgc.copyable-area > div:nth-child(3) > button')
-        );
-        $botonEnviar->click();
-        $mensajesenviados=$mensajesenviados+1;
-        sleep($intervalo);
+        $elements = $driver->findElements(WebDriverBy::cssSelector('#main > footer > div._2i7Ej._14Mgc.copyable-area > div:nth-child(3) > button'));
+        // $elements is now array - containing instances of RemoteWebElement (or empty, if no element is found)
+
+        if(!empty($elements)){
+          $botonEnviar = $driver->wait()->until(
+            WebDriverExpectedCondition::presenceOfElementLocated(WebDriverBy::cssSelector('#main > footer > div._2i7Ej._14Mgc.copyable-area > div:nth-child(3) > button'))
+          );          
+  
+          $botonEnviar = $driver->findElement(
+            WebDriverBy::cssSelector('#main > footer > div._2i7Ej._14Mgc.copyable-area > div:nth-child(3) > button')
+          );
+          $botonEnviar->click();
+          $mensajesenviados=$mensajesenviados+1;
+          sleep($intervalo);
+        }else{
+          $mensajesnoenviados=$mensajesnoenviados+1;
+        }
     }
     else{
       $mensajesnoenviados=$mensajesnoenviados+1;
