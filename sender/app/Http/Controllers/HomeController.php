@@ -55,8 +55,8 @@ class HomeController extends Controller
         return back()->with('status','Contacto Eliminado');
     }
     public function envio(Request $request){
-        $tiempoespera = 3;
-        $intervalo = 3;
+        $tiempoespera = $request->wait;
+        $intervalo = $request->interval;
         $mensaje = $request->mensaje;
         //$mensaje = "Hola amigo";
         $usuarioactivo= auth()->id();

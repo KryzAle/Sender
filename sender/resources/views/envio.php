@@ -13,34 +13,44 @@ use Facebook\WebDriver\Chrome\ChromeOptions;
 require_once('../vendor/autoload.php');
 
 
+$mensajesenviados=0;
+$mensajesnoenviados=0;
 
 foreach($contactos as $item){
     
     $numeroTelefonico = $item->telefono;
-    $numero = $rest = substr($numeroTelefonico, 1);
-    $numeroTel = "593" . $numero;
     
-    $options = new ChromeOptions();
-    $options->setExperimentalOption('debuggerAddress','localhost:9014');
-    
-    // This is where Selenium server 2/3 listens by default. For Selenium 4, Chromedriver or Geckodriver, use http://localhost:4444/
-    $host = 'http://localhost:4444';
-    $caps = DesiredCapabilities::chrome();
-    $caps->setCapability(ChromeOptions::CAPABILITY, $options);
-    
-    $driver = RemoteWebDriver::create($host, $caps);
-    $driver->get("https://web.whatsapp.com/send?phone=" . $numeroTel . "&text=" . $mensaje . "&source&data");
-    sleep($tiempoespera);
-    $element = $driver->wait()->until(
-      WebDriverExpectedCondition::presenceOfElementLocated(WebDriverBy::cssSelector('#main > footer > div._2i7Ej._14Mgc.copyable-area > div:nth-child(3) > button'))
-    );
-    $botonEnviar = $driver->findElement(
-      WebDriverBy::cssSelector('#main > footer > div._2i7Ej._14Mgc.copyable-area > div:nth-child(3) > button')
-    );
-    $botonEnviar->click();
-
-    sleep($intervalo);
-
+    if($numeroTelefonico[0]=='0' && $numeroTelefonico[1]=='9')
+    {
+        $numero = $rest = substr($numeroTelefonico, 1);
+        $numeroTel = "593" . $numero;
+        
+        $options = new ChromeOptions();
+        $options->setExperimentalOption('debuggerAddress','localhost:9014');
+        
+        // This is where Selenium server 2/3 listens by default. For Selenium 4, Chromedriver or Geckodriver, use http://localhost:4444/
+        $host = 'http://localhost:4444';
+        $caps = DesiredCapabilities::chrome();
+        $caps->setCapability(ChromeOptions::CAPABILITY, $options);
+        
+        $driver = RemoteWebDriver::create($host, $caps);
+        $driver->get("https://web.whatsapp.com/send?phone=" . $numeroTel . "&text=" . $mensaje . "&source&data");
+        //sleep($tiempoespera);
+        $botonEnviar = $driver->wait()->until(
+          WebDriverExpectedCondition::presenceOfElementLocated(WebDriverBy::cssSelector('#main > footer > div._2i7Ej._14Mgc.copyable-area > div:nth-child(3) > button'))
+        );
+        sleep($tiempoespera);
+        $botonEnviar = $driver->findElement(
+          WebDriverBy::cssSelector('#main > footer > div._2i7Ej._14Mgc.copyable-area > div:nth-child(3) > button')
+        );
+        $botonEnviar->click();
+        $mensajesenviados=$mensajesenviados+1;
+        sleep($intervalo);
+    }
+    else{
+      $mensajesnoenviados=$mensajesnoenviados+1;
+    }
   }
 
-  echo "SUS MENSAJES HAN SIDO ENVIADOS ";
+  echo "MENSAJES ENVIADOS: " .$mensajesenviados;
+  echo "MENSAJES NO ENVIADOS: " .$mensajesnoenviados;

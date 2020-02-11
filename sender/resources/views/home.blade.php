@@ -17,8 +17,6 @@
                             {{ session('status') }}
                         </div>
                     @endif
-                    
-
 
                     <form action="{{ route('contacts.import.excel') }}" method="post" enctype="multipart/form-data">
                         @csrf
@@ -42,10 +40,10 @@
                         <div class="form-row">
                             
                             <div class="col">
-                            <input type="number" min="1" class="form-control" placeholder="Tiempo de espera(seg)" required>
+                            <input type="number" min="1" class="form-control" placeholder="Tiempo de espera(seg)" name="wait" required>
                             </div>
                             <div class="col">
-                            <input type="number" min="1" class="form-control" placeholder="Intervalo de envio de mensajes(seg)" required>
+                            <input type="number" min="1" class="form-control" placeholder="Intervalo de envio de mensajes(seg)" name="interval" required>
                             </div>
                         </div>
                         <br>
