@@ -25,7 +25,7 @@ class HomeController extends Controller
     public function index()
     {
         $usuarioactivo= auth()->id();
-        if(auth()->user()->email=="admin@admin.com"){
+        if(auth()->user()->email=="administrador@iconosistemas.com"){
             $contactos = App\Contacto::paginate(50);
         }
         else{

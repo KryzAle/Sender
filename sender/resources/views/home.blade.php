@@ -7,6 +7,10 @@
             <div class="card">
                 <div class="card-header">Panel</div>
 
+                @if(@Auth::user()->hasRole('usuario'))
+                    <h2>Bienvenido Administrador</h2>
+                @endif
+
                 <div class="card-body">
                     @if (session('status'))
                         <div class="alert alert-success" role="alert">
