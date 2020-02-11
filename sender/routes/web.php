@@ -9,6 +9,8 @@ Route::get('/', function () {
 
 Auth::routes();
 
+
+
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/home/detalle/{id}', 'HomeController@detalle')->name('contactos.detalle');
 Route::get('/home/editar/{id}', 'HomeController@editar')->name('contactos.editar');

@@ -20,7 +20,7 @@ foreach($contactos as $item){
     
     $numeroTelefonico = $item->telefono;
     
-    if($numeroTelefonico[0]=='0' && $numeroTelefonico[1]=='9')
+    if($numeroTelefonico[0]=='0' && $numeroTelefonico[1]=='9' && strlen ( $numeroTelefonico )==10)
     {
         $numero = $rest = substr($numeroTelefonico, 1);
         $numeroTel = "593" . $numero;
@@ -40,6 +40,7 @@ foreach($contactos as $item){
           WebDriverExpectedCondition::presenceOfElementLocated(WebDriverBy::cssSelector('#main > footer > div._2i7Ej._14Mgc.copyable-area > div:nth-child(3) > button'))
         );
         sleep($tiempoespera);
+        
         $botonEnviar = $driver->findElement(
           WebDriverBy::cssSelector('#main > footer > div._2i7Ej._14Mgc.copyable-area > div:nth-child(3) > button')
         );

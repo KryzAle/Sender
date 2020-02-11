@@ -1,0 +1,37 @@
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
+
+//crear los roles
+$role = Role::create(['name' => 'administrador']);
+$role = Role::create(['name' => 'usuario']);
+
+//crear permisos
+$permission = Permission::create(['name' => 'crear usuario']);
+
+//asignar permiso al los roles
+
+$role = Role::find(1); //administrador
+$role->givePermissionTo('crear usuario');
+
+//asignar rol a usuario
+
+$user = User::find(1);
+$user->assignRole('administrador');
+
+
+$user = User::find(2);
+$user->assignRole('administrador');
+
+//en el app/Http/Kernel.php
+
+protected $routeMiddleware = [
+    // ...
+    'role' => \Spatie\Permission\Middlewares\RoleMiddleware::class,
+    'permission' => \Spatie\Permission\Middlewares\PermissionMiddleware::class,
+    'role_or_permission' => \Spatie\Permission\Middlewares\RoleOrPermissionMiddleware::class,
+];
+
+//en el archivo de rutas 
+Route::group(['middleware' => ['role:administrador']], function () {
+    Auth::routes();
+});
