@@ -60,6 +60,43 @@ foreach($contactos as $item){
       $mensajesnoenviados=$mensajesnoenviados+1;
     }
   }
+  ?>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Sender - Mensajes Enviados</title>
 
-  echo "MENSAJES ENVIADOS: " .$mensajesenviados;
-  echo "MENSAJES NO ENVIADOS: " .$mensajesnoenviados;
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <!-- Custom styles for this template -->
+    <!--<link href="./end_files/cover.css" rel="stylesheet">-->
+    <link href="https://getbootstrap.com/docs/4.1/examples/cover/cover.css" rel="stylesheet">
+
+  </head>
+
+  <body class="text-center">
+
+    <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+      <header class="masthead mb-auto">
+        <div class="inner">
+          <h3 class="masthead-brand">Sender</h3>
+        </div>
+      </header>
+
+      <main role="main" class="inner cover">
+        <h1 class="cover-heading">¡Listo!</h1>
+        <p class="lead">Mensajes enviados: <?= $mensajesenviados ?> - Mensajes no enviados: <?= $mensajesnoenviados ?> </p>
+        <p class="lead">
+          <a href="{{route('home')}}" class="btn btn-lg btn-secondary">Volver al Panel</a>
+        </p>
+      </main>
+
+      <footer class="mastfoot mt-auto">
+        <div class="inner">
+          <p>Sender de <a href="http://www.iconosistemas.com/">Icono Sistemas</a></p>
+        </div>
+      </footer>
+    </div>
+</body>
+</html>

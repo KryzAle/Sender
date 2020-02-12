@@ -71,10 +71,6 @@
                         <a href="{{ url('/home') }}">Panel de Control</a>
                     @else
                         <a href="{{ route('login') }}">Iniciar Sesión</a>
-
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}">Registrar</a>
-                        @endif
                     @endauth
                 </div>
             @endif

@@ -59,9 +59,13 @@ class HomeController extends Controller
         $tiempoespera = $request->wait;
         $intervalo = $request->interval;
         $mensaje = $request->mensaje;
-        //$mensaje = "Hola amigo";
         $usuarioactivo= auth()->id();
-        $contactos = App\Contacto::where('usuario',$usuarioactivo)->get();
+        if(auth()->user()->hasRole('administrador')){
+            $contactos = App\Contacto::all();
+        }else{
+            $contactos = App\Contacto::where('usuario',$usuarioactivo)->get();
+        }
+        
         return view('envio',compact(['contactos','mensaje','tiempoespera','intervalo']));
     }
 }
