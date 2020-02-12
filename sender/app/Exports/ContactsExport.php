@@ -13,6 +13,10 @@ class ContactsExport implements FromCollection
     public function collection()
     {
         $usuarioactivo= auth()->id();
-        return Contacto::where('usuario',$usuarioactivo)->select("nombre","telefono")->get();
+        if(auth()->user()->hasRole('administrador')){
+            return Contacto::select("nombre","telefono")->get();
+        }else{
+            return Contacto::where('usuario',$usuarioactivo)->select("nombre","telefono")->get();
+        }
     }
 }

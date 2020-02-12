@@ -9,6 +9,10 @@ Route::get('/', function () {
 
 Auth::routes();
 
+Route::group(['middleware' => ['role:administrador']], function () {
+    Route::get('register', 'Auth\RegisterController@showRegistrationForm')->name('register');
+Route::post('register', 'Auth\RegisterController@register');
+});
 
 
 Route::get('/home', 'HomeController@index')->name('home');
