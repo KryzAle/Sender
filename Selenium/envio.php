@@ -8,17 +8,19 @@ namespace Facebook\WebDriver;
 use Facebook\WebDriver\Remote\DesiredCapabilities;
 use Facebook\WebDriver\Remote\RemoteWebDriver;
 use Facebook\WebDriver\Chrome\ChromeOptions;
+use Facebook\WebDriver\Remote\LocalFileDetector;
 
 
-require_once('../vendor/autoload.php');
+require_once('vendor/autoload.php');
 
 
 $mensajesenviados=0;
 $mensajesnoenviados=0;
-
-foreach($contactos as $item){
     
-    $numeroTelefonico = $item->telefono;
+    $numeroTelefonico = '0979358929';
+    $mensaje ='esta es una prueba';
+    $tiempoespera = 10;
+    $intervalo = 10;
     
     if($numeroTelefonico[0]=='0' && $numeroTelefonico[1]=='9' && strlen ( $numeroTelefonico )==10)
     {
@@ -36,9 +38,18 @@ foreach($contactos as $item){
         $driver = RemoteWebDriver::create($host, $caps);
         $driver->get("https://web.whatsapp.com/send?phone=" . $numeroTel . "&text=" . $mensaje . "&source&data");
         sleep($tiempoespera);
-        //$driver->navigate()->refresh();
-        
-        $elements = $driver->findElements(WebDriverBy::cssSelector('#main > footer > div._2i7Ej._14Mgc.copyable-area > div:nth-child(3) > button'));
+        $botonAdjunto = $driver->findElement(WebDriverBy::cssSelector('#main > header > div._2kYeZ > div > div:nth-child(2) > div'));
+        $botonAdjunto->click();
+        $fileInput = $driver->findElement(WebDriverBy::cssSelector('#main > header > div._2kYeZ > div > div._3j8Pd.GPmgf > span > div > div > ul > li:nth-child(1) > button > input[type=file]'));
+        //$fileInput = $driver->findElement(WebDriverBy::cssSelector('#main > header > div._2kYeZ > div > div._3j8Pd.GPmgf > span > div > div > ul > li:nth-child(1) > button'));
+        //$fileInput->click();
+        $fileInput->setFileDetector(new LocalFileDetector());
+        $filePath='C:\Users\KryzAle\Pictures\e3.jpg';
+        $fileInput->sendKeys($filePath);
+        sleep($tiempoespera);
+        $botonEnvioIMG = $driver->findElement(WebDriverBy::cssSelector('#app > div > div > div._2aMzp > div._10V4p._1jxtm > span > div > span > div > div > div.rK2ei.USE1O > span > div > div'));
+        $botonEnvioIMG->click();
+        /*$elements = $driver->findElements(WebDriverBy::cssSelector('#main > footer > div._2i7Ej._14Mgc.copyable-area > div:nth-child(3) > button'));
         // $elements is now array - containing instances of RemoteWebElement (or empty, if no element is found)
 
         if(!empty($elements)){
@@ -49,16 +60,17 @@ foreach($contactos as $item){
           $botonEnviar = $driver->findElement(
             WebDriverBy::cssSelector('#main > footer > div._2i7Ej._14Mgc.copyable-area > div:nth-child(3) > button')
           );
-          $botonEnviar->click();
+          $botonEnviar->click();*/
+
+          
           $mensajesenviados=$mensajesenviados+1;
           sleep($intervalo);
-        }else{
+        /*}else{
           $mensajesnoenviados=$mensajesnoenviados+1;
-        }
+        }*/
     }
     else{
       $mensajesnoenviados=$mensajesnoenviados+1;
-    }
   }
   ?>
 <!DOCTYPE html>
