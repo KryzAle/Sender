@@ -1,5 +1,16 @@
+php artisan migrate
+php artisan tinker
+OJO: Cambiar el campo Observacion en la tabla contacto
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
+
+//crear el administrador
+$user = new App\User;
+$user->name = 'Admin';
+$user->email = 'administrador@iconosistemas.com';
+$user->password = Hash::make('tecnico.2020');
+$user->save();
+
 
 //crear los roles
 $role = Role::create(['name' => 'administrador']);
@@ -13,25 +24,11 @@ $permission = Permission::create(['name' => 'crear usuario']);
 $role = Role::find(1); //administrador
 $role->givePermissionTo('crear usuario');
 
-//asignar rol a usuario
+//asignacion de roles
 
 $user = User::find(1);
 $user->assignRole('administrador');
 
-
+//si se crea otro administrador
 $user = User::find(2);
 $user->assignRole('administrador');
-
-//en el app/Http/Kernel.php
-
-protected $routeMiddleware = [
-    // ...
-    'role' => \Spatie\Permission\Middlewares\RoleMiddleware::class,
-    'permission' => \Spatie\Permission\Middlewares\PermissionMiddleware::class,
-    'role_or_permission' => \Spatie\Permission\Middlewares\RoleOrPermissionMiddleware::class,
-];
-
-//en el archivo de rutas 
-Route::group(['middleware' => ['role:administrador']], function () {
-    Auth::routes();
-});
