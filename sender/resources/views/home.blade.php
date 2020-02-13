@@ -40,8 +40,19 @@
                         <textarea class="form-control"  placeholder="Ingrese su mensaje" 
                         name="mensaje" rows="5" id="texto" name="texto" required></textarea>
                         <br>
+                        <div class="container">
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="multi" name="multi"  onclick="habilitaMultimedia('multimedia')" />
+                                <label class="form-check-label" for="multi">Insertar Multimedia</label>
+                            </div>
+                            <div class="container">
+                                <input type="file" name="multimedia" id="multimedia" disabled="true" />
+                                
+                            </div>
+                            <br>
+                        </div>
+                        
                         <div class="form-row">
-                            
                             <div class="col">
                             <input type="number" min="1" class="form-control" placeholder="Tiempo de espera(seg)" name="wait" required>
                             </div>
@@ -84,8 +95,7 @@
                                         @csrf
                                         <button type="submit" class="btn btn-outline-danger">Eliminar</button>
                                     </form> 
-                                </td>
-                                
+                                </td> 
                             </tr>
                         @endforeach
                         </tbody>
@@ -97,4 +107,12 @@
         </div>
     </div>
 </div>
+<script>
+    function habilitaMultimedia(campo)
+    {
+        var estadoActual = document.getElementById(campo);
+                        
+        estadoActual.disabled = !estadoActual.disabled;
+    }
+</script>
 @endsection
