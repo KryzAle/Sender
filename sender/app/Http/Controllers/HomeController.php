@@ -50,6 +50,15 @@ class HomeController extends Controller
         $contactoUpdate->save();
         return back()->with('mensaje','Contacto Actualizado');
     }
+    public function eliminarlote(){
+        $usuarioact= auth()->id();
+        $contactoslote = App\Contacto::where('usuario',$usuarioact)->get();
+        foreach($contactoslote as $item){
+            $item->usuario = 1;
+            $item->save();
+        }
+        return back()->with('mensaje','Lote de Contactos Eliminado');
+    }
     public function eliminar($id){
         $contactoEliminar = App\Contacto::findOrFail($id);
         $contactoEliminar->delete();

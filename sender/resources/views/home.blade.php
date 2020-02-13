@@ -32,7 +32,7 @@
 
                         <input type="file" name="file">
                         
-                        <button class="btn btn-danger">Importar Contactos</button>
+                        <button class="btn btn-info">Importar Contactos</button>
                     </form>
                     <form method="POST" class="form-group" action="{{ route('envio') }}" >
                         @csrf
@@ -53,8 +53,14 @@
                         <button class="btn btn-success" type="submit" >Enviar Mensajes</button>
                         
                     </form>
-
-                    Bienvenido a continuacion puede visualizar sus contactos existentes <br>
+                    <div class="form-row">
+                        <div class="col">
+                            Bienvenido a continuacion puede visualizar sus contactos registrados <br>
+                        </div>
+                        <div class="col">
+                        <a href="{{route('eliminarlote')}}" class="btn btn-danger">Eliminar lote de Contactos</a><br>
+                        </div>
+                    </div>
                     <table class="table">
                         <thead class="thead-dark">
                             <tr>
@@ -71,12 +77,12 @@
                                 <td>{{$item->nombre}}</td>
                                 <td>{{$item->telefono}}</td>
                                 <td>
-                                    <a class="btn btn-primary" href="{{route('contactos.detalle',$item)}}">Detalle</a>
-                                    <a href="{{route('contactos.editar', $item)}}" class="btn btn-warning">Editar</a>
+                                    <a class="btn btn-outline-primary" href="{{route('contactos.detalle',$item)}}">Detalle</a>
+                                    <a href="{{route('contactos.editar', $item)}}" class="btn btn-outline-success">Editar</a>
                                     <form action="{{ route('contactos.eliminar', $item) }}" class="d-inline" method="POST">
                                         @method('DELETE')
                                         @csrf
-                                        <button type="submit" class="btn btn-danger">Eliminar</button>
+                                        <button type="submit" class="btn btn-outline-danger">Eliminar</button>
                                     </form> 
                                 </td>
                                 

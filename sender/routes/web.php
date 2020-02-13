@@ -16,6 +16,7 @@ Route::post('register', 'Auth\RegisterController@register');
 
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home/eliminarlote', 'HomeController@eliminarlote')->name('eliminarlote');
 Route::get('/home/detalle/{id}', 'HomeController@detalle')->name('contactos.detalle');
 Route::get('/home/editar/{id}', 'HomeController@editar')->name('contactos.editar');
 Route::put('/home/editar/{id}', 'HomeController@update')->name('contactos.update');
