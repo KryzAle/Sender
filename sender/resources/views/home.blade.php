@@ -20,6 +20,11 @@
                             {{ session('status') }}
                         </div>
                     @endif
+                    @if (session('error'))
+                        <div class="alert alert-danger" role="alert">
+                            {{ session('error') }}
+                        </div>
+                    @endif
 
                     <form action="{{ route('contacts.import.excel') }}" method="post" enctype="multipart/form-data">
                         @csrf
@@ -43,7 +48,7 @@
                         <div class="container">
                             <div class="form-check">
                                 <input type="checkbox" class="form-check-input" id="multi" name="multi"  onclick="habilitaMultimedia('multimedia')" />
-                                <label class="form-check-label" for="multi">Insertar Multimedia</label>
+                                <label class="form-check-label" for="multi">Insertar Multimedia (Recuerde que el archivo multimedia no debe superar los 50Mb)</label>
                             </div>
                             <div class="container">
                                 <label for="archivo"><b>Archivo: </b></label><br>

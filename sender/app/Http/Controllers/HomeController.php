@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App;
+use Illuminate\Support\Facades\Storage;
+
 
 class HomeController extends Controller
 {
@@ -65,9 +67,13 @@ class HomeController extends Controller
         return back()->with('status','Contacto Eliminado');
     }
     public function envio(Request $request){
-        
         if($request->file('multimedia')!=NULL){
             $path = $request->file('multimedia')->store('public');
+            $size = Storage::size($path);
+            if($size>52428800){
+            //if($size>15728640){ 
+                return back()->with('error','Se ha exedido el tamaño de 50 mb en el archivo multimedia');
+            }
             $mensajeconmultimedia="si";
         }else{
             $path ="no hay path";
