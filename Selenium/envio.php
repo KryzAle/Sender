@@ -38,16 +38,14 @@ $mensajesnoenviados=0;
         $driver = RemoteWebDriver::create($host, $caps);
         $driver->get("https://web.whatsapp.com/send?phone=" . $numeroTel . "&text=" . $mensaje . "&source&data");
         sleep($tiempoespera);
+
         $botonAdjunto = $driver->findElement(WebDriverBy::cssSelector('#main > header > div._2kYeZ > div > div:nth-child(2) > div'));
         $botonAdjunto->click();
         sleep(5);
         $fileInput = $driver->findElement(WebDriverBy::cssSelector('#main > header > div._2kYeZ > div > div._3j8Pd.GPmgf > span > div > div > ul > li:nth-child(1) > button > input[type=file]'));
-        //$fileInput = $driver->findElement(WebDriverBy::cssSelector('#main > header > div._2kYeZ > div > div._3j8Pd.GPmgf > span > div > div > ul > li:nth-child(1) > button'));
-        //$fileInput->click();
         $fileInput->setFileDetector(new LocalFileDetector());
         $filePath='C:\Users\KryzAle\Pictures\e3.jpg';
         $fileInput->sendKeys($filePath);
-        //sleep($tiempoespera);
         $botonEnvioIMG = $driver->wait()->until(
           WebDriverExpectedCondition::presenceOfElementLocated(WebDriverBy::cssSelector('#app > div > div > div._2aMzp > div._10V4p._1jxtm > span > div > span > div > div > div.rK2ei.USE1O > span > div > div'))
         );

@@ -24,3 +24,4 @@ Route::delete('/home/eliminar/{id}','HomeController@eliminar')->name('contactos.
 Route::get('contact-list-excel',    'ContactoController@exportExcel')->name('contacts.excel');
 Route::post('import-list-excel', 'ContactoController@importExcel')->name('contacts.import.excel');
 Route::post('/home/enviar',    'HomeController@envio')->name('envio');
+//Route::post('/home/subir',    'HomeController@subirArchivo')->name('subir');

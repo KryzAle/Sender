@@ -65,6 +65,14 @@ class HomeController extends Controller
         return back()->with('status','Contacto Eliminado');
     }
     public function envio(Request $request){
+        
+        if($request->file('multimedia')!=NULL){
+            $path = $request->file('multimedia')->store('public');
+            $mensajeconmultimedia="si";
+        }else{
+            $path ="no hay path";
+            $mensajeconmultimedia="no";
+        }
         $tiempoespera = $request->wait;
         $intervalo = $request->interval;
         $mensaje = $request->mensaje;
@@ -75,6 +83,6 @@ class HomeController extends Controller
             $contactos = App\Contacto::where('usuario',$usuarioactivo)->get();
         }
         
-        return view('envio',compact(['contactos','mensaje','tiempoespera','intervalo']));
+        return view('envio',compact(['contactos','mensaje','tiempoespera','intervalo','path','mensajeconmultimedia']));
     }
 }

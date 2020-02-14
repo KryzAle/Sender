@@ -34,7 +34,7 @@
                         
                         <button class="btn btn-info">Importar Contactos</button>
                     </form>
-                    <form method="POST" class="form-group" action="{{ route('envio') }}" >
+                    <form method="POST" class="form-group" action="{{ route('envio') }}" accept-charset="UTF-8" enctype="multipart/form-data">
                         @csrf
                         <label for="texto">Mensaje</label>
                         <textarea class="form-control"  placeholder="Ingrese su mensaje" 
@@ -46,8 +46,8 @@
                                 <label class="form-check-label" for="multi">Insertar Multimedia</label>
                             </div>
                             <div class="container">
-                                <input type="file" name="multimedia" id="multimedia" disabled="true" />
-                                
+                                <label for="archivo"><b>Archivo: </b></label><br>
+                                <input accept="image/*,video/mp4,video/3gpp,video/quicktime" type="file"  name="multimedia" id="multimedia" disabled="true" required>
                             </div>
                             <br>
                         </div>
@@ -115,4 +115,6 @@
         estadoActual.disabled = !estadoActual.disabled;
     }
 </script>
+
+
 @endsection
