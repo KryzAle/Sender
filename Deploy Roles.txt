@@ -1,3 +1,11 @@
+use Illuminate\Support\Facades\Schema;
+
+public function boot()
+{
+    Schema::defaultStringLength(191);
+}
+
+
 php artisan migrate
 php artisan tinker
 OJO: Cambiar el campo Observacion en la tabla contacto
@@ -8,7 +16,7 @@ use Spatie\Permission\Models\Permission;
 $user = new App\User;
 $user->name = 'Admin';
 $user->email = 'administrador@iconosistemas.com';
-$user->password = Hash::make('tecnico.2020');
+$user->password = Hash::make('iconosistemas.2020');
 $user->save();
 
 
@@ -31,4 +39,5 @@ $user->assignRole('administrador');
 
 //si se crea otro administrador
 $user = User::find(2);
+
 $user->assignRole('administrador');
