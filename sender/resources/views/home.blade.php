@@ -48,7 +48,7 @@
                         <div class="container">
                             <div class="form-check">
                                 <input type="checkbox" class="form-check-input" id="multi" name="multi"  onclick="habilitaMultimedia('multimedia')" />
-                                <label class="form-check-label" for="multi">Insertar Multimedia (Recuerde que el archivo multimedia no debe superar los 50Mb)</label>
+                                <label class="form-check-label" for="multi">Insertar Multimedia (Recuerde que el archivo multimedia no debe superar los 5Mb)</label>
                             </div>
                             <div class="container">
                                 <label for="archivo"><b>Archivo: </b></label><br>
@@ -66,8 +66,9 @@
                             </div>
                         </div>
                         <br>
-                        <button class="btn btn-success" type="submit" >Enviar Mensajes</button>
-                        
+                        <div class="container-fluid">
+                            <button class="btn btn-success btn-lg btn-block" type="submit" >Enviar Mensajes</button>
+                        </div>
                     </form>
                     <div class="form-row">
                         <div class="col">
@@ -104,9 +105,11 @@
                             </tr>
                         @endforeach
                         </tbody>
-                    </table>   
+                    </table>
                     {{$contactos->links()}}
-                    <a class="btn btn-success" href="{{ route('contacts.excel') }}">Descargar Lista de Contactos</a>
+                    @if(@Auth::user()->hasRole('administrador'))   
+                        <a class="btn btn-success" href="{{ route('contacts.excel') }}">Descargar Lista de Contactos</a>
+                    @endif
                 </div>
             </div>
         </div>

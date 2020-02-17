@@ -70,9 +70,9 @@ class HomeController extends Controller
         if($request->file('multimedia')!=NULL){
             $path = $request->file('multimedia')->store('public');
             $size = Storage::size($path);
-            if($size>52428800){
+            if($size>5242880){
             //if($size>15728640){ 
-                return back()->with('error','Se ha exedido el tamaño de 50 mb en el archivo multimedia');
+                return back()->with('error','Se ha exedido el tamaño de 5 mb en el archivo multimedia');
             }
             $mensajeconmultimedia="si";
         }else{
