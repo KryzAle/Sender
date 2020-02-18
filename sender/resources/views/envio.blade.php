@@ -39,47 +39,53 @@ foreach($contactos as $item){
         $driver = RemoteWebDriver::create($host, $caps);
         $driver->get("https://web.whatsapp.com/send?phone=" . $numeroTel . "&text=" . $mensaje . "&source&data");
         sleep($tiempoespera);
-        if($mensajeconmultimedia=="si"){
-          $path  = substr($pathEnvio, 6);
-          $botonAdjunto = $driver->findElement(WebDriverBy::cssSelector('#main > header > div._2kYeZ > div > div:nth-child(2) > div'));
-          $botonAdjunto->click();
-          sleep(5);
-          $fileInput = $driver->findElement(WebDriverBy::cssSelector('#main > header > div._2kYeZ > div > div._3j8Pd.GPmgf > span > div > div > ul > li:nth-child(1) > button > input[type=file]'));
-          $fileInput->setFileDetector(new LocalFileDetector());
-          $filePath="C:/laragon/www/Sender/sender/public/storage" . $path ;
-          $fileInput->sendKeys($filePath);
-          $botonEnvioIMG = $driver->wait()->until(
-            WebDriverExpectedCondition::presenceOfElementLocated(WebDriverBy::cssSelector('#app > div > div > div._2aMzp > div._10V4p._1jxtm > span > div > span > div > div > div.rK2ei.USE1O > span > div > div'))
-          );
-          $botonEnvioIMG = $driver->findElement(WebDriverBy::cssSelector('#app > div > div > div._2aMzp > div._10V4p._1jxtm > span > div > span > div > div > div.rK2ei.USE1O > span > div > div'));
-          $botonEnvioIMG->click();
-          $mensajesenviados=$mensajesenviados+1;
-          sleep($intervalo);
-        }else{
-          //enviar solo texto
-          $elements = $driver->findElements(WebDriverBy::cssSelector('#main > footer > div._2i7Ej._14Mgc.copyable-area > div:nth-child(3) > button'));
 
-          if(!empty($elements)){
-            $botonEnviar = $driver->wait()->until(
-              WebDriverExpectedCondition::presenceOfElementLocated(WebDriverBy::cssSelector('#main > footer > div._2i7Ej._14Mgc.copyable-area > div:nth-child(3) > button'))
-            );          
-    
-            $botonEnviar = $driver->findElement(
-              WebDriverBy::cssSelector('#main > footer > div._2i7Ej._14Mgc.copyable-area > div:nth-child(3) > button')
-            );
-            $botonEnviar->click();
-            $mensajesenviados=$mensajesenviados+1;
-            sleep($intervalo);
-          }else{
+        $elements = $driver->findElements(WebDriverBy::cssSelector('#main > footer > div._2i7Ej._14Mgc.copyable-area > div:nth-child(3) > button'));
+
+        if(!empty($elements)){
+              if($mensajeconmultimedia=="si"){
+                $path  = substr($pathEnvio, 6);
+                $botonAdjunto = $driver->findElement(WebDriverBy::cssSelector('#main > header > div._2kYeZ > div > div:nth-child(2) > div'));
+                $botonAdjunto->click();
+                sleep(5);
+                $fileInput = $driver->findElement(WebDriverBy::cssSelector('#main > header > div._2kYeZ > div > div._3j8Pd.GPmgf > span > div > div > ul > li:nth-child(1) > button > input[type=file]'));
+                $fileInput->setFileDetector(new LocalFileDetector());
+                $filePath="C:/laragon/www/sender/public/storage" . $path ;
+                
+                $fileInput->sendKeys($filePath);
+                $botonEnvioIMG = $driver->wait()->until(
+                  WebDriverExpectedCondition::presenceOfElementLocated(WebDriverBy::cssSelector('#app > div > div > div._2aMzp > div._10V4p._1jxtm > span > div > span > div > div > div.rK2ei.USE1O > span > div > div'))
+                );
+                $botonEnvioIMG = $driver->findElement(WebDriverBy::cssSelector('#app > div > div > div._2aMzp > div._10V4p._1jxtm > span > div > span > div > div > div.rK2ei.USE1O > span > div > div'));
+                $botonEnvioIMG->click();
+                $mensajesenviados=$mensajesenviados+1;
+                sleep($intervalo);
+            }else{
+              //enviar solo texto
+              
+                $botonEnviar = $driver->wait()->until(
+                  WebDriverExpectedCondition::presenceOfElementLocated(WebDriverBy::cssSelector('#main > footer > div._2i7Ej._14Mgc.copyable-area > div:nth-child(3) > button'))
+                );          
+        
+                $botonEnviar = $driver->findElement(
+                  WebDriverBy::cssSelector('#main > footer > div._2i7Ej._14Mgc.copyable-area > div:nth-child(3) > button')
+                );
+                $botonEnviar->click();
+                $mensajesenviados=$mensajesenviados+1;
+                sleep($intervalo);
+              
+            }
+
+        }else{
             $mensajesnoenviados=$mensajesnoenviados+1;
-          }
         }
+        
     }
     else{
       $mensajesnoenviados=$mensajesnoenviados+1;
     }
   }
-  Storage::delete($pathEnvio);
+  //Storage::delete($pathEnvio);
   ?>
 <!DOCTYPE html>
 <html lang="en">
