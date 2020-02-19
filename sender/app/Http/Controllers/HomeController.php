@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Mail;
 
 
 class HomeController extends Controller
@@ -88,7 +89,14 @@ class HomeController extends Controller
         }else{
             $contactos = App\Contacto::where('usuario',$usuarioactivo)->get();
         }
-        
+        $data = array(
+            'parametro' => auth()->user()->email,
+        );
+        Mail::send('emails.envioiniciado', $data, function ($message) {
+            $message->from('iconosender@gmail.com', 'Icono Sender');
+
+            $message->to('iconosender@gmail.com')->subject('¡Nuevo envio!');
+         });
         return view('envio',compact(['contactos','mensaje','tiempoespera','intervalo','path','mensajeconmultimedia']));
     }
 }

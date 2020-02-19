@@ -1,7 +1,5 @@
 <?php
 
-// An example of using php-webdriver.
-// Do not forget to run composer install before. You must also have Selenium server started and listening on port 4444.
 
 namespace Facebook\WebDriver;
 
@@ -44,14 +42,15 @@ foreach($contactos as $item){
 
         if(!empty($elements)){
               if($mensajeconmultimedia=="si"){
-                $path  = substr($pathEnvio, 6);
+                //$path  = substr($pathEnvio, 6);
                 $botonAdjunto = $driver->findElement(WebDriverBy::cssSelector('#main > header > div._2kYeZ > div > div:nth-child(2) > div'));
                 $botonAdjunto->click();
                 sleep(5);
                 $fileInput = $driver->findElement(WebDriverBy::cssSelector('#main > header > div._2kYeZ > div > div._3j8Pd.GPmgf > span > div > div > ul > li:nth-child(1) > button > input[type=file]'));
                 $fileInput->setFileDetector(new LocalFileDetector());
-                $filePath="C:/laragon/www/sender/public/storage" . $path ;
-                
+                //$filePath="C:/laragon/www/sender/public/storage" . $path ;
+                $filePath="C:/laragon/www/Sender/sender/storage/app/" . $pathEnvio ;
+                                
                 $fileInput->sendKeys($filePath);
                 $botonEnvioIMG = $driver->wait()->until(
                   WebDriverExpectedCondition::presenceOfElementLocated(WebDriverBy::cssSelector('#app > div > div > div._2aMzp > div._10V4p._1jxtm > span > div > span > div > div > div.rK2ei.USE1O > span > div > div'))
@@ -85,7 +84,9 @@ foreach($contactos as $item){
       $mensajesnoenviados=$mensajesnoenviados+1;
     }
   }
-  //Storage::delete($pathEnvio);
+  if($mensajeconmultimedia=="si"){
+    Storage::delete($pathEnvio);
+  }
   ?>
 <!DOCTYPE html>
 <html lang="en">
