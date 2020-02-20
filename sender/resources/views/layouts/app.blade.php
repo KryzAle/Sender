@@ -56,6 +56,11 @@
                                             {{ __('Registrar nuevo usuario') }}
                                         </a>
                                     @endif
+                                    @if(@Auth::user()->hasRole('administrador'))
+                                        <a class="dropdown-item" href="{{ route('usuarios') }}">
+                                            {{ __('Gestionar Usuarios') }}
+                                        </a>
+                                    @endif
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">

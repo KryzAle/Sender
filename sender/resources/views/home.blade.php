@@ -102,8 +102,8 @@
                                 <td>{{$item->nombre}}</td>
                                 <td>{{$item->telefono}}</td>
                                 <td>
-                                    <a class="btn btn-outline-primary" href="{{route('contactos.detalle',$item)}}">.Detalle.</a>
-                                    <a href="{{route('contactos.editar', $item)}}" class="btn btn-outline-success">. Editar .</a>
+                                    <a class="btn btn-outline-primary" href="{{route('contactos.detalle',$item)}}">Detalle</a>
+                                    <a href="{{route('contactos.editar', $item)}}" class="btn btn-outline-success">Editar</a>
                                     <form action="{{ route('contactos.eliminar', $item) }}" class="d-inline" method="POST">
                                         @method('DELETE')
                                         @csrf
