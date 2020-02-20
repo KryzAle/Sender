@@ -8,6 +8,7 @@ use Facebook\WebDriver\Remote\RemoteWebDriver;
 use Facebook\WebDriver\Chrome\ChromeOptions;
 use Facebook\WebDriver\Remote\LocalFileDetector;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Mail;
 
 
 require_once('../vendor/autoload.php');
@@ -83,6 +84,16 @@ foreach($contactos as $item){
   if($mensajeconmultimedia=="si"){
     Storage::delete($pathEnvio);
   }
+$data = array(
+  'mail' => auth()->user()->email,
+  'enviados' => $mensajesenviados,
+  'noenviados' => $mensajesnoenviados,
+);
+Mail::send('emails.enviofinalizado', $data, function ($message) {
+    $message->from('iconosender@gmail.com', 'Icono Sender');
+
+    $message->to('iconosender@gmail.com')->subject('¡Envio Finalizado!');
+ });
   ?>
 <!DOCTYPE html>
 <html lang="es">
