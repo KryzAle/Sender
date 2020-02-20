@@ -8,7 +8,9 @@ public function boot()
 
 php artisan migrate
 php artisan tinker
+
 OJO: Cambiar el campo Observacion en la tabla contacto
+
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 
@@ -23,6 +25,7 @@ $user->save();
 //crear los roles
 $role = Role::create(['name' => 'administrador']);
 $role = Role::create(['name' => 'usuario']);
+$role = Role::create(['name' => 'tecnico']);
 
 //crear permisos
 $permission = Permission::create(['name' => 'crear usuario']);

@@ -60,7 +60,15 @@
                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
                             </div>
                         </div>
+                        <div class="form-group row">
+                            <label for="tipousuario" class="col-md-4 col-form-label text-md-right">Tipo de Cuenta</label>
 
+                            <div class="col-md-6">
+                                <label><input type="radio" name="tipousuario" value="usuario"checked>Usuario</label>
+                                <label><input type="radio" name="tipousuario" value="tecnico">Tecnico</label>
+                            </div>
+                        </div>
+                        
                         <div class="form-group row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">

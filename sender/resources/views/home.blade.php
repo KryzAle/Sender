@@ -9,11 +9,13 @@
 
                 @if(@Auth::user()->hasRole('administrador'))
                     <div class="card-header">Bienvenido Administrador</div>
-                    @else
+                @endif
+                @if(@Auth::user()->hasRole('usuario'))
                     <div class="card-header">Bienvenido Usuario</div>
                 @endif
-                
-
+                @if(@Auth::user()->hasRole('tecnico'))
+                    <div class="card-header">Bienvenido Tecnico</div>
+                @endif
                 <div class="card-body">
                     @if (session('status'))
                         <div class="alert alert-success" role="alert">
