@@ -36,7 +36,7 @@
                         @endif
                         <div class="form-row">
                             <div class="col">
-                                <input type="file" name="file">
+                                <input type="file" name="file" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
                             </div>
                             <div class="col">
                                 <button class="btn btn-info">Importar Contactos</button>
@@ -47,7 +47,7 @@
                         @csrf
                         <label for="texto">Mensaje</label>
                         <textarea class="form-control"  placeholder="Ingrese su mensaje" 
-                        name="mensaje" rows="5" id="texto" name="texto" required></textarea>
+                        name="mensaje" rows="3" id="texto" name="texto" required></textarea>
                         <br>
                         <div class="container">
                             <div class="form-check">
@@ -68,7 +68,7 @@
                             </div>
                             <div class="col">
                             <label for="interval"><b>Intervalo entre cada envio (seg.) </b> (Este es un valor sugerido, reducirlo podría provocar su bloqueo de numero de Whatsapp) </label><br>
-                            <input type="number" value="40" min="1" class="form-control" placeholder="Intervalo de envio de mensajes(seg)" name="interval" required>
+                            <input type="number" value="30" min="1" class="form-control" placeholder="Intervalo de envio de mensajes(seg)" name="interval" required>
                             </div>
                         </div>
                         <br>

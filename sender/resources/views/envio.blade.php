@@ -16,7 +16,7 @@ require_once('../vendor/autoload.php');
 $mensajesenviados=0;
 $mensajesnoenviados=0;
 $pathEnvio = $path;
-
+$pilanoenviados = array();
 foreach($contactos as $item){
     
     $numeroTelefonico = $item->telefono;
@@ -29,7 +29,6 @@ foreach($contactos as $item){
         $options = new ChromeOptions();
         $options->setExperimentalOption('debuggerAddress','localhost:9014');
         
-        // This is where Selenium server 2/3 listens by default. For Selenium 4, Chromedriver or Geckodriver, use http://localhost:4444/
         $host = 'http://localhost:4444';
         $caps = DesiredCapabilities::chrome();
         $caps->setCapability(ChromeOptions::CAPABILITY, $options);
@@ -42,13 +41,11 @@ foreach($contactos as $item){
 
         if(!empty($elements)){
               if($mensajeconmultimedia=="si"){
-                //$path  = substr($pathEnvio, 6);
                 $botonAdjunto = $driver->findElement(WebDriverBy::cssSelector('#main > header > div._2kYeZ > div > div:nth-child(2) > div'));
                 $botonAdjunto->click();
                 sleep(5);
                 $fileInput = $driver->findElement(WebDriverBy::cssSelector('#main > header > div._2kYeZ > div > div._3j8Pd.GPmgf > span > div > div > ul > li:nth-child(1) > button > input[type=file]'));
                 $fileInput->setFileDetector(new LocalFileDetector());
-                //$filePath="C:/laragon/www/sender/public/storage" . $path ;
                 $filePath="C:/laragon/www/Sender/sender/storage/app/" . $pathEnvio ;
                                 
                 $fileInput->sendKeys($filePath);
@@ -72,15 +69,14 @@ foreach($contactos as $item){
                 $botonEnviar->click();
                 $mensajesenviados=$mensajesenviados+1;
                 sleep($intervalo);
-              
             }
-
         }else{
+            array_push($pilanoenviados, $item->nombre . " ". $item->telefono);
             $mensajesnoenviados=$mensajesnoenviados+1;
         }
-        
     }
     else{
+      array_push($pilanoenviados, $item->nombre . $item->telefono);
       $mensajesnoenviados=$mensajesnoenviados+1;
     }
   }
@@ -89,15 +85,12 @@ foreach($contactos as $item){
   }
   ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
   <head>
     <title>Sender - Mensajes Enviados</title>
 
-    <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-    <!-- Custom styles for this template -->
-    <!--<link href="./end_files/cover.css" rel="stylesheet">-->
     <link href="https://getbootstrap.com/docs/4.1/examples/cover/cover.css" rel="stylesheet">
 
   </head>
@@ -117,6 +110,21 @@ foreach($contactos as $item){
         <p class="lead">
           <a href="{{route('home')}}" class="btn btn-lg btn-secondary">Volver al Panel</a>
         </p>
+        <table class="table table-hover">
+          <thead class="thead-light">
+            <tr >
+              <th scope="col">Mensajes no enviados</th>
+            </tr>
+          </thead>
+          <tbody>
+              @foreach($pilanoenviados as $items)
+                <tr class="table-light">
+                  <td>{{$items}}</td>
+                </tr>
+               @endforeach
+          </tbody>
+        </table>
+
       </main>
 
       <footer class="mastfoot mt-auto">
