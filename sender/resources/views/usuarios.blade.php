@@ -61,6 +61,8 @@
                         </tbody>
                     </table>
                     {{$usuarios->links()}}
+                    <a href="{{route('home')}}" class="btn btn-success">Volver al Panel</a>
+
                 </div>
             </div>
         </div>

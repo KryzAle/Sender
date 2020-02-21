@@ -114,7 +114,12 @@
                         @endforeach
                         </tbody>
                     </table>
-                    {{$contactos->links()}}
+                    @if(@Auth::user()->hasRole('administrador'))
+                        {{$contactos->links()}}
+                    @endif
+                    @if(@Auth::user()->hasRole('usuario'))
+                        {{$contactos->links()}}
+                    @endif
                     @if(@Auth::user()->hasRole('administrador'))   
                         <a class="btn btn-success" href="{{ route('contacts.excel') }}">Descargar Lista de Contactos</a>
                     @endif

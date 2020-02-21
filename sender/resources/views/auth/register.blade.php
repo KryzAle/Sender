@@ -65,7 +65,7 @@
 
                             <div class="col-md-6">
                                 <label><input type="radio" name="tipousuario" value="usuario"checked>Usuario</label>
-                                <label><input type="radio" name="tipousuario" value="tecnico">Tecnico</label>
+                                <label><input type="radio" name="tipousuario" value="tecnico">Tecnico/Vendedor</label>
                             </div>
                         </div>
                         

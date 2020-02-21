@@ -28,12 +28,14 @@ class HomeController extends Controller
     public function index()
     {
         $usuarioactivo= auth()->id();
-       // if(auth()->user()->email=="administrador@iconosistemas.com"){
         if(auth()->user()->hasRole('administrador')){
             $contactos = App\Contacto::paginate(50);
         }
-        else{
+        if(auth()->user()->hasRole('usuario')){
             $contactos = App\Contacto::where('usuario',$usuarioactivo)->paginate(50);
+        }
+        if(auth()->user()->hasRole('tecnico')){
+            $contactos = App\Contacto::where('usuario',$usuarioactivo)->take(5)->get();            
         }
         return view('home',compact('contactos'));
     }
@@ -55,11 +57,19 @@ class HomeController extends Controller
     }
     public function eliminarlote(){
         $usuarioact= auth()->id();
-        $contactoslote = App\Contacto::where('usuario',$usuarioact)->get();
-        foreach($contactoslote as $item){
-            $item->usuario = 1;
-            $item->save();
+        if(auth()->user()->hasRole('administrador')|| auth()->user()->hasRole('tecnico')){
+            $contactoslote = App\Contacto::where('usuario',$usuarioact)->get();
+            foreach($contactoslote as $item){
+                $item->delete();
+            }
+        }else{
+            $contactoslote = App\Contacto::where('usuario',$usuarioact)->get();
+            foreach($contactoslote as $item){
+                $item->usuario = 1;
+                $item->save();
+            }
         }
+        
         return back()->with('mensaje','Lote de Contactos Eliminado');
     }
     public function eliminar($id){
@@ -86,8 +96,12 @@ class HomeController extends Controller
         $usuarioactivo= auth()->id();
         if(auth()->user()->hasRole('administrador')){
             $contactos = App\Contacto::all();
-        }else{
+        }
+        if(auth()->user()->hasRole('usuario')){
             $contactos = App\Contacto::where('usuario',$usuarioactivo)->get();
+        }
+        if(auth()->user()->hasRole('tecnico')){
+            $contactos = App\Contacto::where('usuario',$usuarioactivo)->take(5)->get();            
         }
         $data = array(
             'parametro' => auth()->user()->email,
