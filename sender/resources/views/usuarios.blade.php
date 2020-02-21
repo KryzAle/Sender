@@ -32,7 +32,7 @@
                             Aqui puede visualizar los usuarios registrados<br>
                         </div>
                     </div>
-                    <table class="table">
+                    <table class="table table-responsive">
                         <thead class="thead-dark">
                             <tr>
                                 <th scope="col">ID</th>
@@ -48,13 +48,15 @@
                                 <td>{{$item->name}}</td>
                                 <td>{{$item->email}}</td>
                                 <td>
-                                    
-                                    <a href="{{route('usuarios.editar', $item)}}" class="btn btn-outline-success"> Cambiar Contraseña </a>
+                                <a href="{{route('usuarios.editar', $item)}}" class="btn btn-outline-success"> Cambiar Contraseña </a>
+                                <?php if ($item->email != "administrador@iconosistemas.com"): ?>
                                     <form action="{{ route('usuarios.eliminar', $item) }}" class="d-inline" method="POST">
                                         @method('DELETE')
                                         @csrf
                                         <button type="submit" class="btn btn-outline-danger">Eliminar</button>
                                     </form> 
+                                <?php endif; ?>
+                                    
                                 </td> 
                             </tr>
                         @endforeach

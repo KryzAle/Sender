@@ -49,6 +49,11 @@ class UsuariosController extends Controller
     }
     public function eliminar($id){
         $usuarioEliminar = App\User::findOrFail($id);
+        $contactoslote = App\Contacto::where('usuario',$id)->get();
+        foreach($contactoslote as $item){
+            $item->usuario = 1;
+            $item->save();
+        }
         $usuarioEliminar->delete();
         return back()->with('status','Usuario Eliminado');
     }
