@@ -4,6 +4,7 @@ namespace App\Exports;
 
 use App\Contacto;
 use Maatwebsite\Excel\Concerns\FromCollection;
+use Illuminate\Support\Collection;
 
 class ContactsExport implements FromCollection
 {
@@ -12,11 +13,14 @@ class ContactsExport implements FromCollection
     */
     public function collection()
     {
-        $usuarioactivo= auth()->id();
-        if(auth()->user()->hasRole('administrador')){
-            return Contacto::select("nombre","telefono")->get();
-        }else{
-            return Contacto::where('usuario',$usuarioactivo)->select("nombre","telefono")->get();
-        }
+        $colecciondenombres = new Collection([
+            ["Nombre", "Apellido", "Telefono"]
+        ]);
+        $contactos = Contacto::select("nombre","telefono")->get();
+        foreach($contactos as $item){
+            $nombrecompleto = explode(" ", $item->nombre);
+            $colecciondenombres->push([$nombrecompleto[0],$nombrecompleto[1],$item->telefono]);
+        }        
+        return $colecciondenombres;
     }
 }
