@@ -81,7 +81,7 @@ class HomeController extends Controller
         if($request->file('multimedia')!=NULL){
             $path = $request->file('multimedia')->store('public');
             $size = Storage::size($path);
-            if($size>5242880){
+            if($size>15728640){
             //if($size>15728640){ 
                 return back()->with('error','Se ha exedido el tamaño de 5 mb en el archivo multimedia');
             }
@@ -109,7 +109,7 @@ class HomeController extends Controller
         Mail::send('emails.envioiniciado', $data, function ($message) {
             $message->from('iconosender@gmail.com', 'Icono Sender');
 
-            $message->to('iconosender@gmail.com')->subject('¡Nuevo envio!');
+            $message->to('iconosender@gmail.com')->subject('Nuevo envio de: ' . auth()->user()->email);
          });
         return view('envio',compact(['contactos','mensaje','tiempoespera','intervalo','path','mensajeconmultimedia']));
     }

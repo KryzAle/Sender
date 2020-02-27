@@ -24,8 +24,14 @@ class ContactoController extends Controller
             return back()->with('message', 'No ha cargado ningun archivo');
         }
         else{
-            Excel::import(new ContactsImport, $file);
-            return back()->with('message', 'Importación de contactos completada');
+            try{
+                Excel::import(new ContactsImport, $file);
+                return back()->with('message', 'Importación de contactos completada');
+
+            }catch(\Exception $e){
+                return back()->with('error', 'El Archivo no tiene el formato esperado');
+
+            }
         }
         
 
