@@ -26,6 +26,8 @@ foreach($contactos as $item){
     {
         $numero = $rest = substr($numeroTelefonico, 1);
         $numeroTel = "593" . $numero;
+        try{
+
         
         $options = new ChromeOptions();
         $options->setExperimentalOption('debuggerAddress','localhost:9014');
@@ -36,7 +38,16 @@ foreach($contactos as $item){
         
         $driver = RemoteWebDriver::create($host, $caps);
         $driver->get("https://web.whatsapp.com/send?phone=" . $numeroTel . "&text=" . $mensaje . "&source&data");
+        /*
+        $driver->wait()->until(
+          WebDriverExpectedCondition::alertIsPresent(),
+          'I am expecting an alert!'
+        );
+        $driver->switchTo()->alert()->accept();*/
+        
         sleep($tiempoespera);
+      
+
 
         $elements = $driver->findElements(WebDriverBy::cssSelector('#main > footer > div._2i7Ej._14Mgc.copyable-area > div:nth-child(3) > button'));
 
@@ -50,6 +61,7 @@ foreach($contactos as $item){
                 $filePath="C:/laragon/www/Sender/sender/storage/app/" . $pathEnvio ;
                                 
                 $fileInput->sendKeys($filePath);
+                sleep(5);
                 $botonEnvioIMG = $driver->wait()->until(
                   WebDriverExpectedCondition::presenceOfElementLocated(WebDriverBy::cssSelector('#app > div > div > div._2aMzp > div._10V4p._1jxtm > span > div > span > div > div > div.rK2ei.USE1O > span > div > div'))
                 );
@@ -71,13 +83,28 @@ foreach($contactos as $item){
                 $mensajesenviados=$mensajesenviados+1;
                 sleep($intervalo);
             }
+            
         }else{
             array_push($pilanoenviados, $item->nombre . " ". $item->telefono);
             $mensajesnoenviados=$mensajesnoenviados+1;
         }
+      }catch(\Exception $e){
+          //dd($e);
+          if($e->getCode()==0){
+            $driver->navigate()->refresh();
+            $driver->wait()->until(
+            WebDriverExpectedCondition::alertIsPresent(),
+            'I am expecting an alert!'
+          );
+          sleep(5);
+          $driver->switchTo()->alert()->accept();
+          array_push($pilanoenviados, $item->nombre ." ". $item->telefono);
+          $mensajesnoenviados=$mensajesnoenviados+1;
+        }
+      }
     }
     else{
-      array_push($pilanoenviados, $item->nombre . $item->telefono);
+      array_push($pilanoenviados, $item->nombre ." ". $item->telefono);
       $mensajesnoenviados=$mensajesnoenviados+1;
     }
   }
