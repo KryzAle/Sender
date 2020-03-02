@@ -73,6 +73,16 @@
                             <input type="number" value="30" min="1" class="form-control" placeholder="Intervalo de envio de mensajes(seg)" name="interval" required>
                             </div>
                         </div>
+                        <div class="form-row">
+                            <div class="col">
+                            <label for="wait"><b>Numero de envios antes de pausar </b>(Este es un valor sugerido, este valor es el ) </label><br>
+                            <input type="number" value="25" min="1" class="form-control" placeholder="Tiempo de espera(seg)" name="wait" required>
+                            </div>
+                            <div class="col">
+                            <label for="interval"><b>Tiempo de pausa (seg.) </b> (Este es un valor sugerido, reducirlo podría provocar su bloqueo de numero de Whatsapp) </label><br>
+                            <input type="number" value="30" min="1" class="form-control" placeholder="Intervalo de envio de mensajes(seg)" name="interval" required>
+                            </div>
+                        </div>
                         <br>
                         <div class="container-fluid">
                             <button class="btn btn-success btn-lg btn-block" type="submit" >Enviar Mensajes</button>
