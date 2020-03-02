@@ -89,8 +89,11 @@ foreach($contactos as $item){
             $mensajesnoenviados=$mensajesnoenviados+1;
         }
       }catch(\Exception $e){
-          //dd($e);
-          if($e->getCode()==0){
+        $mensajeError = $e->getResults();
+        $mensajeError = $mensajeError['value'];
+        $mensajeError = $mensajeError['error'];
+        //dd($e);
+          if($mensajeError=="unexpected alert open"){
             $driver->navigate()->refresh();
             $driver->wait()->until(
             WebDriverExpectedCondition::alertIsPresent(),
@@ -100,6 +103,8 @@ foreach($contactos as $item){
           $driver->switchTo()->alert()->accept();
           array_push($pilanoenviados, $item->nombre ." ". $item->telefono);
           $mensajesnoenviados=$mensajesnoenviados+1;
+        }else{
+          $driver->navigate()->refresh();
         }
       }
     }
