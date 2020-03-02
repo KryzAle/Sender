@@ -37,7 +37,7 @@ foreach($contactos as $item){
         $caps->setCapability(ChromeOptions::CAPABILITY, $options);
         
         $driver = RemoteWebDriver::create($host, $caps);
-        $driver->get("https://web.whatsapp.com/send?phone=" . $numeroTel . "&text=" . $mensaje . "&source&data");
+        $driver->get("https://web.whatsapp.com/send?phone=" . $numeroTel . "&text=Hola ". $item->nombre . ", " .$mensaje . "&source&data");
         /*
         $driver->wait()->until(
           WebDriverExpectedCondition::alertIsPresent(),
@@ -45,7 +45,7 @@ foreach($contactos as $item){
         );
         $driver->switchTo()->alert()->accept();*/
         
-        sleep($tiempoespera);
+        sleep($tiempoespera + rand(1,9));
       
 
 
@@ -55,20 +55,20 @@ foreach($contactos as $item){
               if($mensajeconmultimedia=="si"){
                 $botonAdjunto = $driver->findElement(WebDriverBy::cssSelector('#main > header > div._2kYeZ > div > div:nth-child(2) > div'));
                 $botonAdjunto->click();
-                sleep(5);
+                sleep(5 + rand(1,5));
                 $fileInput = $driver->findElement(WebDriverBy::cssSelector('#main > header > div._2kYeZ > div > div._3j8Pd.GPmgf > span > div > div > ul > li:nth-child(1) > button > input[type=file]'));
                 $fileInput->setFileDetector(new LocalFileDetector());
                 $filePath="C:/laragon/www/Sender/sender/storage/app/" . $pathEnvio ;
                                 
                 $fileInput->sendKeys($filePath);
-                sleep(5);
+                sleep(5 + rand(1,5));
                 $botonEnvioIMG = $driver->wait()->until(
                   WebDriverExpectedCondition::presenceOfElementLocated(WebDriverBy::cssSelector('#app > div > div > div._2aMzp > div._10V4p._1jxtm > span > div > span > div > div > div.rK2ei.USE1O > span > div > div'))
                 );
                 $botonEnvioIMG = $driver->findElement(WebDriverBy::cssSelector('#app > div > div > div._2aMzp > div._10V4p._1jxtm > span > div > span > div > div > div.rK2ei.USE1O > span > div > div'));
                 $botonEnvioIMG->click();
                 $mensajesenviados=$mensajesenviados+1;
-                sleep($intervalo);
+                sleep($intervalo + rand(1,9));
             }else{
               //enviar solo texto
               
@@ -81,7 +81,7 @@ foreach($contactos as $item){
                 );
                 $botonEnviar->click();
                 $mensajesenviados=$mensajesenviados+1;
-                sleep($intervalo);
+                sleep($intervalo + rand(1,9));
             }
             
         }else{

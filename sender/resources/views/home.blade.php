@@ -54,7 +54,7 @@
                         <div class="container">
                             <div class="form-check">
                                 <input type="checkbox" class="form-check-input" id="multi" name="multi"  onclick="habilitaMultimedia('multimedia')" />
-                                <label class="form-check-label" for="multi">Insertar Multimedia (Recuerde que el archivo multimedia no debe superar los 5Mb)</label>
+                                <label class="form-check-label" for="multi">Insertar Multimedia (Recuerde que el archivo multimedia no debe superar los 15Mb)</label>
                             </div>
                             <div class="container">
                                 <label for="archivo"><b>Archivo: </b></label><br>
