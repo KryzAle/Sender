@@ -39,6 +39,9 @@ class HomeController extends Controller
         }
         return view('home',compact('contactos'));
     }
+    public function parametros(){
+        return view('parametros');
+    }
     public function detalle($id){
         $contacto = App\Contacto::findOrFail($id);
         return view('contactos.detalle',compact('contacto'));

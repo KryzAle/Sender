@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-10">
             <div class="card">
                 
 
@@ -45,57 +45,8 @@
                             </div>
                         </div>
                     </form>
-                    <form method="POST" class="form-group" action="{{ route('envio') }}" accept-charset="UTF-8" enctype="multipart/form-data">
-                        @csrf
-                        <label for="texto">Mensaje</label>
-                        <textarea class="form-control"  placeholder="Ingrese su mensaje" 
-                        name="mensaje" rows="3" id="texto" name="texto" required></textarea>
-                        <br>
-                        <div class="container">
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input" id="multi" name="multi"  onclick="habilitaMultimedia('multimedia')" />
-                                <label class="form-check-label" for="multi">Insertar Multimedia (Recuerde que el archivo multimedia no debe superar los 15Mb)</label>
-                            </div>
-                            <div class="container">
-                                <label for="archivo"><b>Archivo: </b></label><br>
-                                <input accept="image/*,video/mp4,video/3gpp,video/quicktime" type="file"  name="multimedia" id="multimedia" disabled="true" required>
-                            </div>
-                            <br>
-                        </div>
-                        
-                        <div class="form-row">
-                            <div class="col">
-                            <label for="wait"><b>Tiempo de espera(seg.) </b>(Este es un valor sugerido, recuerde que esto depende de su velocidad de conexion a internet) </label><br>
-                            <input type="number" value="25" min="1" class="form-control" placeholder="Tiempo de espera(seg)" name="wait" required>
-                            </div>
-                            <div class="col">
-                            <label for="interval"><b>Intervalo entre cada envio (seg.) </b> (Este es un valor sugerido, reducirlo podría provocar su bloqueo de numero de Whatsapp) </label><br>
-                            <input type="number" value="30" min="1" class="form-control" placeholder="Intervalo de envio de mensajes(seg)" name="interval" required>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="col">
-                            <label for="wait"><b>Numero de envios antes de pausar </b>(Este es un valor sugerido, este valor es el ) </label><br>
-                            <input type="number" value="25" min="1" class="form-control" placeholder="Tiempo de espera(seg)" name="wait" required>
-                            </div>
-                            <div class="col">
-                            <label for="interval"><b>Tiempo de pausa (seg.) </b> (Este es un valor sugerido, reducirlo podría provocar su bloqueo de numero de Whatsapp) </label><br>
-                            <input type="number" value="30" min="1" class="form-control" placeholder="Intervalo de envio de mensajes(seg)" name="interval" required>
-                            </div>
-                        </div>
-                        <br>
-                        <div class="container-fluid">
-                            <button class="btn btn-success btn-lg btn-block" type="submit" >Enviar Mensajes</button>
-                        </div>
-                    </form>
-                    <div class="form-row">
-                        <div class="col">
-                            Aqui puede visualizar los contactos almacenados a los que se les realizara el envio<br>
-                        </div>
-                        <div class="col">
-                        <a href="{{route('eliminarlote')}}" class="btn btn-danger">Eliminar lote de Contactos</a><br>
-                        </div>
-                    </div>
+                   
+                    <br>
                     <table class="table">
                         <thead class="thead-dark">
                             <tr>
@@ -130,9 +81,17 @@
                     @if(@Auth::user()->hasRole('usuario'))
                         {{$contactos->links()}}
                     @endif
-                    @if(@Auth::user()->hasRole('administrador'))   
-                        <a class="btn btn-success" href="{{ route('contacts.excel') }}">Descargar Lista de Contactos</a>
-                    @endif
+                    <div class="form-row">
+                        <div class="col">
+                            <a class="btn btn-success" href="{{ route('parametros') }}">Siguiente...</a>
+                        </div>
+                        <div class="col">
+                            <a class="btn btn-warning" href="{{ route('contacts.excel') }}">Exportar su lista de Contactos</a>
+                        </div>
+                        <div class="col">
+                            <a href="{{route('eliminarlote')}}" class="btn btn-danger">Eliminar todos los Contactos</a><br>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

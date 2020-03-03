@@ -13,10 +13,16 @@ class ContactsExport implements FromCollection
     */
     public function collection()
     {
+        $usuarioact= auth()->id();
         $colecciondenombres = new Collection([
             ["Nombre", "Apellido", "Telefono"]
         ]);
-        $contactos = Contacto::select("nombre","telefono")->get();
+        if(auth()->user()->hasRole('administrador')){
+            $contactos = Contacto::select("nombre","telefono")->get();
+        }
+        if(auth()->user()->hasRole('tecnico')||auth()->user()->hasRole('usuario')){
+            $contactos = Contacto::select("nombre","telefono")->where('usuario',$usuarioact)->get();
+        }
         foreach($contactos as $item){
             $nombrecompleto = explode(" ", $item->nombre);
             $colecciondenombres->push([$nombrecompleto[0],$nombrecompleto[1],$item->telefono]);
