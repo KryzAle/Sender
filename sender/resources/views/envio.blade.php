@@ -96,6 +96,8 @@ foreach($contactos as $item){
           $mensajesnoenviados=$mensajesnoenviados+1;
         }else{
           $driver->navigate()->refresh();
+          array_push($pilanoenviados, $item->nombre ." ". $item->telefono);
+          $mensajesnoenviados=$mensajesnoenviados+1;
         }
       }
     }
