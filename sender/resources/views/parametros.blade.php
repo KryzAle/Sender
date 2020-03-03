@@ -52,12 +52,12 @@
                         </div>
                         <div class="form-row">
                             <div class="col">
-                            <label for="wait"><b>Numero de envios antes de pausar </b>(Este numero indica la cantidad de mensajes que se envian antes de realizar la pausa) </label><br>
-                            <input type="number" value="25" min="1" class="form-control" placeholder="Tiempo de espera(seg)" name="wait" required>
+                            <label for="numenvios"><b>Numero de envios antes de pausar </b>(Este numero indica la cantidad de mensajes que se envian antes de realizar la pausa) </label><br>
+                            <input type="number" value="50" min="50" class="form-control" placeholder="Numero de mensajes" name="numenvios" required>
                             </div>
                             <div class="col">
-                            <label for="interval"><b>Tiempo de pausa (seg.) </b> (Este es un valor sugerido, el valor indica el tiempo de espera antes de reanudar los envios) </label><br>
-                            <input type="number" value="30" min="1" class="form-control" placeholder="Intervalo de envio de mensajes(seg)" name="interval" required>
+                            <label for="tiempopause"><b>Tiempo de pausa (min.) </b> (Este es un valor sugerido, el valor indica el tiempo de espera antes de reanudar los envios) </label><br>
+                            <input type="number" value="20" min="20" class="form-control" placeholder="Tiempo de pausa" name="tiempopause" required>
                             </div>
                         </div>
                         <br>

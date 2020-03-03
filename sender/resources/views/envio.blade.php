@@ -19,16 +19,16 @@ $mensajesnoenviados=0;
 $pathEnvio = $path;
 $pilanoenviados = array();
 foreach($contactos as $item){
-    
+    if(($mensajesenviados%$numenvios==0)&&($mensajesenviados!=0)){
+      sleep($tiempopause*60);
+    }    
     $numeroTelefonico = $item->telefono;
     
     if($numeroTelefonico[0]=='0' && $numeroTelefonico[1]=='9' && strlen ( $numeroTelefonico )==10)
     {
         $numero = $rest = substr($numeroTelefonico, 1);
         $numeroTel = "593" . $numero;
-        try{
-
-        
+      try{
         $options = new ChromeOptions();
         $options->setExperimentalOption('debuggerAddress','localhost:9014');
         
@@ -38,17 +38,8 @@ foreach($contactos as $item){
         
         $driver = RemoteWebDriver::create($host, $caps);
         $driver->get("https://web.whatsapp.com/send?phone=" . $numeroTel . "&text=Hola ". $item->nombre . ", " .$mensaje . "&source&data");
-        /*
-        $driver->wait()->until(
-          WebDriverExpectedCondition::alertIsPresent(),
-          'I am expecting an alert!'
-        );
-        $driver->switchTo()->alert()->accept();*/
-        
+
         sleep($tiempoespera + rand(1,9));
-      
-
-
         $elements = $driver->findElements(WebDriverBy::cssSelector('#main > footer > div._2i7Ej._14Mgc.copyable-area > div:nth-child(3) > button'));
 
         if(!empty($elements)){

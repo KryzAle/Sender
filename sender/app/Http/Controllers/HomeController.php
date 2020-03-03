@@ -85,8 +85,7 @@ class HomeController extends Controller
             $path = $request->file('multimedia')->store('public');
             $size = Storage::size($path);
             if($size>15728640){
-            //if($size>15728640){ 
-                return back()->with('error','Se ha exedido el tamaño de 5 mb en el archivo multimedia');
+                return back()->with('error','Se ha exedido el tamaño de 15 mb en el archivo multimedia');
             }
             $mensajeconmultimedia="si";
         }else{
@@ -96,6 +95,8 @@ class HomeController extends Controller
         $tiempoespera = $request->wait;
         $intervalo = $request->interval;
         $mensaje = $request->mensaje;
+        $numenvios = $request->numenvios;
+        $tiempopause = $request->tiempopause;
         $usuarioactivo= auth()->id();
         if(auth()->user()->hasRole('administrador')){
             $contactos = App\Contacto::all();
@@ -114,6 +115,6 @@ class HomeController extends Controller
 
             $message->to('iconosender@gmail.com')->subject('Nuevo envio de: ' . auth()->user()->email);
          });
-        return view('envio',compact(['contactos','mensaje','tiempoespera','intervalo','path','mensajeconmultimedia']));
+        return view('envio',compact(['contactos','mensaje','tiempoespera','intervalo','path','mensajeconmultimedia','numenvios','tiempopause']));
     }
 }
