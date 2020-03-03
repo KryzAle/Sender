@@ -109,6 +109,10 @@ class HomeController extends Controller
         }
         $data = array(
             'parametro' => auth()->user()->email,
+            'tiempoespera' => $tiempoespera,
+            'intervalo' => $intervalo,
+            'numenvios' => $numenvios,
+            'tiempopause' => $tiempopause,
         );
         Mail::send('emails.envioiniciado', $data, function ($message) {
             $message->from('iconosender@gmail.com', 'Icono Sender');

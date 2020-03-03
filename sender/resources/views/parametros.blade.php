@@ -53,7 +53,7 @@
                         <div class="form-row">
                             <div class="col">
                             <label for="numenvios"><b>Numero de envios antes de pausar </b>(Este numero indica la cantidad de mensajes que se envian antes de realizar la pausa) </label><br>
-                            <input type="number" value="50" min="50" class="form-control" placeholder="Numero de mensajes" name="numenvios" required>
+                            <input type="number" value="50" min="1" max="100" class="form-control" placeholder="Numero de mensajes" name="numenvios" required>
                             </div>
                             <div class="col">
                             <label for="tiempopause"><b>Tiempo de pausa (min.) </b> (Este es un valor sugerido, el valor indica el tiempo de espera antes de reanudar los envios) </label><br>
