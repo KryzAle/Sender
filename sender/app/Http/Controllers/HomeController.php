@@ -117,7 +117,7 @@ class HomeController extends Controller
         Mail::send('emails.envioiniciado', $data, function ($message) {
             $message->from('iconosender@gmail.com', 'Icono Sender');
 
-            $message->to('iconosender@gmail.com')->subject('Nuevo envio de: ' . auth()->user()->email);
+            $message->to('info@iconosistemas.com')->subject('Nuevo envio de: ' . auth()->user()->email);
          });
         return view('envio',compact(['contactos','mensaje','tiempoespera','intervalo','path','mensajeconmultimedia','numenvios','tiempopause']));
     }

@@ -50,7 +50,7 @@ foreach($contactos as $item){
                 sleep(5 + rand(1,5));
                 $fileInput = $driver->findElement(WebDriverBy::cssSelector('#main > header > div._2kYeZ > div > div._3j8Pd.GPmgf > span > div > div > ul > li:nth-child(1) > button > input[type=file]'));
                 $fileInput->setFileDetector(new LocalFileDetector());
-                $filePath="C:/laragon/www/Sender/sender/storage/app/" . $pathEnvio ;
+                $filePath="C:/laragon/www/sender/storage/app/" . $pathEnvio ;
                                 
                 $fileInput->sendKeys($filePath);
                 sleep(5 + rand(1,5));
@@ -124,7 +124,7 @@ $data = array(
 Mail::send('emails.enviofinalizado', $data, function ($message) {
     $message->from('iconosender@gmail.com', 'Icono Sender');
 
-    $message->to('iconosender@gmail.com')->subject('¡Envio Finalizado!');
+    $message->to('info@iconosistemas.com')->subject('¡Envio Finalizado!');
  });
   ?>
 <!DOCTYPE html>
