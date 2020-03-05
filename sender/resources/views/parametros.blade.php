@@ -7,7 +7,7 @@
             <div class="card">
                 
                 <div class="card-header">
-                    <a class="btn btn-warning" href="{{ route('home') }}">Volver</a>
+                    <a class="btn btn-success" href="{{ route('home') }}">Volver</a>
                 </div>
 
                 <div class="card-body">
@@ -62,7 +62,7 @@
                         </div>
                         <br>
                         <div class="container-fluid">
-                            <button class="btn btn-success btn-lg btn-block" type="submit" >Enviar Mensajes</button>
+                            <button class="btn btn-primary btn-lg btn-block" type="submit" >Enviar Mensajes</button>
                         </div>
                     </form>
                 </div>

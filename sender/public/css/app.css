@@ -4472,7 +4472,7 @@ input[type=button].btn-block {
 
 .nav-tabs .nav-link.disabled {
   color: #6c757d;
-  background-color: transparent;
+  background-color: #6c757d;
   border-color: transparent;
 }
 
@@ -10882,5 +10882,21 @@ a.text-dark:focus {
     color: inherit;
     border-color: #dee2e6;
   }
+  
+  
 }
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: #1D286D;
+  color: white;
+  text-align: center;
+  }
+
+
+
+
+
 

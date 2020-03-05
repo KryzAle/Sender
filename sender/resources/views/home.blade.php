@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-10">
+        <div class="col-md-9">
             <div class="card">
                 
 
@@ -47,33 +47,36 @@
                     </form>
                    
                     <br>
-                    <table class="table">
-                        <thead class="thead-dark">
-                            <tr>
-                                <th scope="col">ID</th>
-                                <th scope="col">Nombre</th>
-                                <th scope="col">Telefono</th>
-                                <th scope="col">Acciones</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        @foreach($contactos as $item)
-                            <tr>
-                                <th scope="row">{{$item->id}}</th>
-                                <td>{{$item->nombre}}</td>
-                                <td>{{$item->telefono}}</td>
-                                <td>
-                                    <a class="btn btn-outline-primary" href="{{route('contactos.detalle',$item)}}">Detalle</a>
-                                    <a href="{{route('contactos.editar', $item)}}" class="btn btn-outline-success">Editar</a>
-                                    <form action="{{ route('contactos.eliminar', $item) }}" class="d-inline" method="POST">
-                                        @method('DELETE')
-                                        @csrf
-                                        <button type="submit" class="btn btn-outline-danger">Eliminar</button>
-                                    </form> 
-                                </td> 
-                            </tr>
-                        @endforeach
-                        </tbody>
+                    <table class="table-responsive">
+                    
+                        <table class="table text-center">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th scope="col">ID</th>
+                                    <th scope="col">Nombre</th>
+                                    <th scope="col">Telefono</th>
+                                    <th scope="col">Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($contactos as $item)
+                                <tr>
+                                    <th scope="row">{{$item->id}}</th>
+                                    <td>{{$item->nombre}}</td>
+                                    <td>{{$item->telefono}}</td>
+                                    <td style="word-wrap: break-word">
+                                        <a class="btn btn-outline-primary" href="{{route('contactos.detalle',$item)}}">Detalle</a>
+                                        <a href="{{route('contactos.editar', $item)}}" class="btn btn-outline-success">Editar</a>
+                                        <form action="{{ route('contactos.eliminar', $item) }}" class="d-inline" method="POST">
+                                            @method('DELETE')
+                                            @csrf
+                                            <button type="submit" class="btn btn-outline-danger">Eliminar</button>
+                                        </form> 
+                                    </td> 
+                                </tr>
+                            @endforeach
+                            </tbody>
+                        </table>
                     </table>
                     @if(@Auth::user()->hasRole('administrador'))
                         {{$contactos->links()}}
@@ -81,15 +84,15 @@
                     @if(@Auth::user()->hasRole('usuario'))
                         {{$contactos->links()}}
                     @endif
-                    <div class="form-row">
-                        <div class="col">
+                    <div class="row">
+                        <div class="col-5">
+                            <a href="{{route('eliminarlote')}}" class="btn btn-danger">Eliminar Contactos</a><br>
+                        </div>
+                        <div class="col-5">
+                            <a class="btn btn-primary" href="{{ route('contacts.excel') }}">Exportar Contactos</a>
+                        </div>
+                        <div class="col-sm">
                             <a class="btn btn-success" href="{{ route('parametros') }}">Siguiente...</a>
-                        </div>
-                        <div class="col">
-                            <a class="btn btn-warning" href="{{ route('contacts.excel') }}">Exportar su lista de Contactos</a>
-                        </div>
-                        <div class="col">
-                            <a href="{{route('eliminarlote')}}" class="btn btn-danger">Eliminar todos los Contactos</a><br>
                         </div>
                     </div>
                 </div>
@@ -97,14 +100,8 @@
         </div>
     </div>
 </div>
-<script>
-    function habilitaMultimedia(campo)
-    {
-        var estadoActual = document.getElementById(campo);
-                        
-        estadoActual.disabled = !estadoActual.disabled;
-    }
-</script>
+
+
 
 
 @endsection

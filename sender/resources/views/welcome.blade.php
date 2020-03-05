@@ -77,7 +77,7 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Sender
+                    <img src="https://iconosistemas.com.ec/portal/wp-content/uploads/2019/10/SOFT-512x204.png">
                 </div>
             </div>
         </div>

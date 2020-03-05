@@ -1,9 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
+
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-7">
             <div class="card">
                 <div class="card-header">{{ __('Iniciar Sesión') }}</div>
 
@@ -51,6 +52,11 @@
                 </div>
             </div>
         </div>
+    </div>
+</div>
+<div class="footer">
+    <div class="footer-copyright text-center py-3">© 2020 Copyright:
+        <a href="https://iconosistemas.com.ec/portal/" class="text-white"> Iconosistemas.com</a>
     </div>
 </div>
 @endsection

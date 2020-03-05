@@ -16,10 +16,11 @@ require_once('../vendor/autoload.php');
 
 $mensajesenviados=0;
 $mensajesnoenviados=0;
+$contadordeMensajes=0;
 $pathEnvio = $path;
 $pilanoenviados = array();
 foreach($contactos as $item){
-    if(($mensajesenviados%$numenvios==0)&&($mensajesenviados!=0)){
+    if(($contadordeMensajes%$numenvios==0)&&($contadordeMensajes!=0)){
       sleep($tiempopause*60);
     }    
     $numeroTelefonico = $item->telefono;
@@ -59,6 +60,7 @@ foreach($contactos as $item){
                 $botonEnvioIMG = $driver->findElement(WebDriverBy::cssSelector('#app > div > div > div._2aMzp > div._10V4p._1jxtm > span > div > span > div > div > div.rK2ei.USE1O > span > div > div'));
                 $botonEnvioIMG->click();
                 $mensajesenviados=$mensajesenviados+1;
+                $contadordeMensajes++;
                 sleep($intervalo + rand(1,9));
             }else{
               //enviar solo texto
@@ -72,12 +74,14 @@ foreach($contactos as $item){
                 );
                 $botonEnviar->click();
                 $mensajesenviados=$mensajesenviados+1;
+                $contadordeMensajes++;
                 sleep($intervalo + rand(1,9));
             }
             
         }else{
             array_push($pilanoenviados, $item->nombre . " ". $item->telefono);
             $mensajesnoenviados=$mensajesnoenviados+1;
+            $contadordeMensajes++;
         }
       }catch(\Exception $e){
         $mensajeError = $e->getResults();
@@ -94,16 +98,19 @@ foreach($contactos as $item){
           $driver->switchTo()->alert()->accept();
           array_push($pilanoenviados, $item->nombre ." ". $item->telefono);
           $mensajesnoenviados=$mensajesnoenviados+1;
+          $contadordeMensajes++;
         }else{
           $driver->navigate()->refresh();
           array_push($pilanoenviados, $item->nombre ." ". $item->telefono);
           $mensajesnoenviados=$mensajesnoenviados+1;
+          $contadordeMensajes++;
         }
       }
     }
     else{
       array_push($pilanoenviados, $item->nombre ." ". $item->telefono);
       $mensajesnoenviados=$mensajesnoenviados+1;
+      $contadordeMensajes++;
     }
   }
   if($mensajeconmultimedia=="si"){
@@ -136,12 +143,14 @@ Mail::send('emails.enviofinalizado', $data, function ($message) {
     <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
       <header class="masthead mb-auto">
         <div class="inner">
-          <h3 class="masthead-brand">Sender</h3>
+            <a class="masthead-brand" href="https://iconosistemas.com.ec/portal/" target="_blank">
+                <img class="img-fluid" src="https://iconosistemas.com.ec/portal/wp-content/uploads/2019/08/130x53.png">
+            </a>
         </div>
       </header>
 
       <main role="main" class="inner cover">
-        <h1 class="cover-heading">¡Listo!</h1>
+        <h2 class="cover-heading">¡Gracias por utilizar Icono Sender!</h2>
         <p class="lead">Mensajes enviados: <?= $mensajesenviados ?> - Mensajes no enviados: <?= $mensajesnoenviados ?> </p>
         <p class="lead">
           <a href="{{route('home')}}" class="btn btn-lg btn-secondary">Volver al Panel</a>

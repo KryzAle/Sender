@@ -13,20 +13,13 @@
             Los parametros de envio fueron:
         </p>
         <br>
-        <table>
-            <tr>
-                <th>Tiempo de espera</th>
-                <th>Intervalo entre cada envio</th>
-                <th>Numero de envios antes de pausar</th>
-                <th>Tiempo de pausa</th>
-            </tr>
-            <tr>
-                <td>{!! $tiempoespera !!}</td>
-                <td>{!! $intervalo !!}</td>
-                <td>{!! $numenvios !!}</td>
-                <td>{!! $tiempopause !!}</td>
-            </tr>
-        </table>
+        <p><b>Tiempo de espera:</b> {!! $tiempoespera !!} segundos</p>
+        <br>
+        <p><b>Intervalo entre cada envio:</b> {!! $intervalo !!} segundos</p>
+        <br>
+        <p><b>Numero de envios antes de pausar:</b> {!! $numenvios !!} contactos</p>
+        <br>
+        <p><b>Tiempo de pausa:</b> {!! $tiempopause !!} minutos</p>
 
     </body>
 </html>
